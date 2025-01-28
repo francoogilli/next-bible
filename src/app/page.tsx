@@ -1,5 +1,4 @@
 import Github from "@/icons/Github";
-import Image from "next/image";
 
 export default function Home() {
   return (

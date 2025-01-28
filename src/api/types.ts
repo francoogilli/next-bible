@@ -1,9 +1,3 @@
-interface Book {
-  names: string[];
-  abrev: string;
-  chapters: number;
-  testament: string;
-}
 
 export interface Verse {
   verse: string;
