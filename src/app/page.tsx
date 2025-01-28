@@ -1,5 +1,6 @@
 import Github from "@/icons/Github";
 import Link from "next/link";
+import Image from "next/image";
 
 export default function Home() {
   return (
@@ -7,35 +8,40 @@ export default function Home() {
       <div className="absolute top-0 z-[-2] h-screen w-full bg-[#09090B] bg-[radial-gradient(ellipse_42%_68%_at_50%_-20%,rgba(216,195,135,0.3),rgba(255,255,255,0))] md:bg-[radial-gradient(ellipse_22%_70%_at_50%_-20%,rgba(216,195,135,0.3),rgba(255,255,255,0))]"></div>
 
       <div className="relative w-[300px] h-[300px] md:w-[450px] md:h-[450px] mt-24 md:mt-0">
-        <img
+        <Image
           src="/Laurel-Tiras.png"
           className="absolute inset-0 w-full h-full"
           style={{ animation: "levitate 30s ease infinite" }}
           draggable="false"
+          alt="Book"
         />
-        <img
+        <Image
           src="/Book1.png"
           className="absolute inset-0 w-full h-full"
           style={{ animation: "levitate 15s ease infinite" }}
           draggable="false"
+          alt="Book"
         />
-        <img
+        <Image
           src="/Cruz.png"
           className="absolute inset-0 w-full h-full"
           style={{ animation: "levitate 12s ease infinite" }}
           draggable="false"
+          alt="Book"
         />
-        <img
+        <Image
           src="/HojaDerecha.png"
           className="absolute inset-0 w-full h-full"
           style={{ animation: "levitate 10s ease infinite" }}
           draggable="false"
+          alt="Book"
         />
-        <img
+        <Image
           src="/HojaIzquierda.png"
           className="absolute inset-0 w-full h-full"
           style={{ animation: "levitate 9s ease infinite" }}
           draggable="false"
+          alt="Book"
         />
       </div>
 
@@ -49,26 +55,27 @@ export default function Home() {
           repositorio de GitHub.
         </p>
         <div className="mt-5 flex justify-center gap-x-4">
-          <Link href="/libros"
+          <Link
+            href="/libros"
             className="bg-[#0073fff2] text-white hover:bg-[#0073ffe3] transition duration-200 flex justify-center items-center px-5 py-2.5 rounded-xl font-bold text-base md:hidden"
           >
             Empezar
           </Link>
-           <Link
+          <Link
             href="/libros"
             className="bg-[#0073fff2] text-white hover:bg-[#0073ffe3] transition duration-200  justify-center items-center px-5 py-2.5 rounded-xl font-bold text-base hidden md:flex"
           >
             Empezar a leer
           </Link>
-           <Link
+          <Link
             href="https://github.com/francoogilli/bible"
             target="_blank"
             className="bg-zinc-900/70 hover:bg-zinc-800/70 transition duration-200 border border-zinc-800 text-zinc-100 flex justify-center items-center gap-x-2.5 px-5 py-2.5 rounded-xl font-semibold text-base md:hidden"
           >
-            <Github className="size-5"/>
+            <Github className="size-5" />
             GitHub
           </Link>
-           <Link
+          <Link
             href="https://github.com/francoogilli/bible"
             target="_blank"
             className="bg-zinc-900/70 hover:bg-zinc-800/70 transition duration-200 border border-zinc-800 text-zinc-100 justify-center items-center gap-x-2.5 px-5 py-2.5 rounded-xl font-semibold text-base hidden md:flex"
