@@ -58,7 +58,7 @@ export default function Chapter({ params }: ChapterPageProps) {
   useEffect(() => {
     fetchBookByChapter();
     document.title = `${book} - Cap. ${chapter}`;
-  }, [fetchBookByChapter]);
+  }, [books,chapter]);
 
   useEffect(() => {
     if (selectedChapter !== +chapter) {
