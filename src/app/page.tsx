@@ -1,4 +1,5 @@
 import Github from "@/icons/Github";
+import Link from "next/link";
 
 export default function Home() {
   return (
@@ -48,34 +49,33 @@ export default function Home() {
           repositorio de GitHub.
         </p>
         <div className="mt-5 flex justify-center gap-x-4">
-          <a
-            href="/libros"
+          <Link href="/libros"
             className="bg-[#0073fff2] text-white hover:bg-[#0073ffe3] transition duration-200 flex justify-center items-center px-5 py-2.5 rounded-xl font-bold text-base md:hidden"
           >
             Empezar
-          </a>
-          <a
+          </Link>
+           <Link
             href="/libros"
             className="bg-[#0073fff2] text-white hover:bg-[#0073ffe3] transition duration-200  justify-center items-center px-5 py-2.5 rounded-xl font-bold text-base hidden md:flex"
           >
             Empezar a leer
-          </a>
-          <a
+          </Link>
+           <Link
             href="https://github.com/francoogilli/bible"
             target="_blank"
             className="bg-zinc-900/70 hover:bg-zinc-800/70 transition duration-200 border border-zinc-800 text-zinc-100 flex justify-center items-center gap-x-2.5 px-5 py-2.5 rounded-xl font-semibold text-base md:hidden"
           >
             <Github className="size-5"/>
             GitHub
-          </a>
-          <a
+          </Link>
+           <Link
             href="https://github.com/francoogilli/bible"
             target="_blank"
             className="bg-zinc-900/70 hover:bg-zinc-800/70 transition duration-200 border border-zinc-800 text-zinc-100 justify-center items-center gap-x-2.5 px-5 py-2.5 rounded-xl font-semibold text-base hidden md:flex"
           >
             <Github className="size-5" />
             Star on GitHub
-          </a>
+          </Link>
         </div>
       </div>
     </main>
