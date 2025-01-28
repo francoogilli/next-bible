@@ -8,13 +8,14 @@ import { useRouter } from "next/navigation";
 import { Breadcrumbs, BreadcrumbItem } from "@heroui/breadcrumbs";
 import { Divider } from "@heroui/divider";
 import Link from "next/link";
+import { Book, Verse } from "@/api/types";
 export default function Chapter({
   params,
 }: {
   params: { book: string; chapter: string };
 }) {
   const { book, chapter } = params;
-  const [books, setBooks] = useState<any[]>([]);
+  const [books, setBooks] = useState<Book[]>([]);
   const [loading, setLoading] = useState(true);
   const [chapters, setChapters] = useState<{ key: string; label: string }[]>([]);
   const [selectedChapter, setSelectedChapter] = useState<number>(+chapter);
@@ -96,7 +97,7 @@ export default function Chapter({
 
             <Divider className="my-20" />
 
-            {books[0]?.vers.map((verse: any) => (
+            {books[0]?.vers.map((verse: Verse) => (
               <div
                 key={verse.id}
                 className="flex font-inter items-start space-x-3"

@@ -6,6 +6,11 @@ export interface Verse {
   id: number;
 }
 
+export interface Book {
+  num_chapters: number;
+  vers: Verse[];
+};
+
 export interface Chapter {
   testament: string;
   name: string;
