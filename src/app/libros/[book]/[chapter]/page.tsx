@@ -4,9 +4,9 @@ import { getChapterByBook } from "@/api";
 import React, { useState, useEffect, useCallback } from "react";
 import { Spinner } from "@heroui/spinner";
 import { Select, SelectItem } from "@heroui/select";
-import { useRouter } from "next/navigation";
-import { Breadcrumbs, BreadcrumbItem } from "@heroui/breadcrumbs";
 import { Divider } from "@heroui/divider";
+import { Breadcrumbs, BreadcrumbItem } from "@heroui/breadcrumbs";
+import { useRouter } from "next/navigation";
 import Link from "next/link";
 
 type Verse = {
@@ -21,14 +21,12 @@ type Book = {
   vers: Verse[];
 };
 
-type ChapterPageProps = {
-  params: {
-    book: string;
-    chapter: string;
-  };
-};
 
-export default function Chapter({ params }: ChapterPageProps) {
+export default function Chapter({
+  params,
+}: {
+  params: { book: string; chapter: string };
+}) {
   const { book, chapter } = params;
   const [books, setBooks] = useState<Book[]>([]);
   const [loading, setLoading] = useState(true);
