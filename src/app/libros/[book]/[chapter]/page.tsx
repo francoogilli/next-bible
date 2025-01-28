@@ -21,11 +21,14 @@ type Book = {
   vers: Verse[];
 };
 
-export default function Chapter({
-  params,
-}: {
-  params: { book: string; chapter: string };
-}) {
+type ChapterPageProps = {
+  params: {
+    book: string;
+    chapter: string;
+  };
+};
+
+export default function Chapter({ params }: ChapterPageProps) {
   const { book, chapter } = params;
   const [books, setBooks] = useState<Book[]>([]);
   const [loading, setLoading] = useState(true);
@@ -74,18 +77,16 @@ export default function Chapter({
         </div>
       ) : (
         <div className="max-w-6xl w-full">
-          <div className="max-w-6xl w-full">
-            <Breadcrumbs variant="solid" radius="md">
-              <BreadcrumbItem>
-                <Link href="/">Inicio</Link>
-              </BreadcrumbItem>
-              <BreadcrumbItem>
-                <Link href="/libros">Libros</Link>
-              </BreadcrumbItem>
-              <BreadcrumbItem className="capitalize">{book}</BreadcrumbItem>
-              <BreadcrumbItem>Cap. {chapter}</BreadcrumbItem>
-            </Breadcrumbs>
-          </div>
+          <Breadcrumbs variant="solid" radius="md">
+            <BreadcrumbItem>
+              <Link href="/">Inicio</Link>
+            </BreadcrumbItem>
+            <BreadcrumbItem>
+              <Link href="/libros">Libros</Link>
+            </BreadcrumbItem>
+            <BreadcrumbItem className="capitalize">{book}</BreadcrumbItem>
+            <BreadcrumbItem>Cap. {chapter}</BreadcrumbItem>
+          </Breadcrumbs>
 
           <div className="w-full max-w-3xl mx-auto rounded-xl shadow-lg p-6 space-y-6">
             <div className="flex justify-center">
