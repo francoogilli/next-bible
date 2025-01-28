@@ -1,14 +1,26 @@
 "use client";
 
 import { getChapterByBook } from "@/api";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { Spinner } from "@heroui/spinner";
 import { Select, SelectItem } from "@heroui/select";
 import { useRouter } from "next/navigation";
 import { Breadcrumbs, BreadcrumbItem } from "@heroui/breadcrumbs";
 import { Divider } from "@heroui/divider";
 import Link from "next/link";
-import { Book, Verse } from "@/api/types";
+
+type Verse = {
+  id: number;
+  number: number;
+  verse: string;
+  study?: string;
+};
+
+type Book = {
+  num_chapters: number;
+  vers: Verse[];
+};
+
 export default function Chapter({
   params,
 }: {
@@ -21,7 +33,7 @@ export default function Chapter({
   const [selectedChapter, setSelectedChapter] = useState<number>(+chapter);
   const router = useRouter();
 
-  const fetchBookByChapter = async () => {
+  const fetchBookByChapter = useCallback(async () => {
     try {
       const booksData = await getChapterByBook(book, +chapter);
       setBooks(booksData);
@@ -38,12 +50,12 @@ export default function Chapter({
       console.error("Error fetching books:", error);
       setLoading(false);
     }
-  };
+  }, [book, chapter]);
 
   useEffect(() => {
     fetchBookByChapter();
     document.title = `${book} - Cap. ${chapter}`;
-  }, [book, chapter]);
+  }, [fetchBookByChapter]);
 
   useEffect(() => {
     if (selectedChapter !== +chapter) {
