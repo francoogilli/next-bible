@@ -13,19 +13,19 @@ export default function Chapter({
 }: {
   params: { book: string; chapter: string };
 }) {
-  const { book, chapter } = React.use(params);
-  const [books, setBooks] = useState(null);
+  const { book, chapter } = params;
+  const [books, setBooks] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
-  const [chapters, setChapters] = useState([]);
+  const [chapters, setChapters] = useState<{ key: string; label: string }[]>([]);
   const [selectedChapter, setSelectedChapter] = useState<number>(+chapter);
   const router = useRouter();
 
   const fetchBookByChapter = async () => {
     try {
-      const booksData = await getChapterByBook(book, chapter);
+      const booksData = await getChapterByBook(book, +chapter);
       setBooks(booksData);
 
-      const totalChapters = booksData.num_chapters;
+      const totalChapters = booksData[0].num_chapters;
       const chaptersArray = Array.from({ length: totalChapters }, (_, i) => ({
         key: `${i + 1}`,
         label: `Capitulo ${i + 1}`,
@@ -45,7 +45,7 @@ export default function Chapter({
   }, [book, chapter]);
 
   useEffect(() => {
-    if (selectedChapter !== chapter) {
+    if (selectedChapter !== +chapter) {
       router.push(`/libros/${book}/${selectedChapter}`);
     }
   }, [selectedChapter, chapter, book, router]);
@@ -82,7 +82,7 @@ export default function Chapter({
                 placeholder="Ir a un capítulo"
                 defaultSelectedKeys={[selectedChapter.toString()]}
                 onChange={(selected) => {
-                  setSelectedChapter(selected.target.value);
+                  setSelectedChapter(Number(selected.target.value));
                 }}
               >
                 {(chapter) => <SelectItem>{chapter.label}</SelectItem>}
@@ -96,7 +96,7 @@ export default function Chapter({
 
             <Divider className="my-20" />
 
-            {books?.vers.map((verse: any) => (
+            {books[0]?.vers.map((verse: any) => (
               <div
                 key={verse.id}
                 className="flex font-inter items-start space-x-3"
