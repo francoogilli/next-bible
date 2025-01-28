@@ -1,45 +1,31 @@
 "use client";
 
 import { getChapterByBook } from "@/api";
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect } from "react";
 import { Spinner } from "@heroui/spinner";
 import { Select, SelectItem } from "@heroui/select";
-import { Divider } from "@heroui/divider";
-import { Breadcrumbs, BreadcrumbItem } from "@heroui/breadcrumbs";
 import { useRouter } from "next/navigation";
+import { Breadcrumbs, BreadcrumbItem } from "@heroui/breadcrumbs";
+import { Divider } from "@heroui/divider";
 import Link from "next/link";
-
-type Verse = {
-  id: number;
-  number: number;
-  verse: string;
-  study?: string;
-};
-
-type Book = {
-  num_chapters: number;
-  vers: Verse[];
-};
-
-
 export default function Chapter({
   params,
 }: {
   params: { book: string; chapter: string };
 }) {
-  const { book, chapter } = params;
-  const [books, setBooks] = useState<Book[]>([]);
+  const { book, chapter } = React.use(params);
+  const [books, setBooks] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [chapters, setChapters] = useState<{ key: string; label: string }[]>([]);
+  const [chapters, setChapters] = useState([]);
   const [selectedChapter, setSelectedChapter] = useState<number>(+chapter);
   const router = useRouter();
 
-  const fetchBookByChapter = useCallback(async () => {
+  const fetchBookByChapter = async () => {
     try {
-      const booksData = await getChapterByBook(book, +chapter);
+      const booksData = await getChapterByBook(book, chapter);
       setBooks(booksData);
 
-      const totalChapters = booksData[0].num_chapters;
+      const totalChapters = booksData.num_chapters;
       const chaptersArray = Array.from({ length: totalChapters }, (_, i) => ({
         key: `${i + 1}`,
         label: `Capitulo ${i + 1}`,
@@ -51,15 +37,15 @@ export default function Chapter({
       console.error("Error fetching books:", error);
       setLoading(false);
     }
-  }, [book, chapter]);
+  };
 
   useEffect(() => {
     fetchBookByChapter();
     document.title = `${book} - Cap. ${chapter}`;
-  }, [books,chapter]);
+  }, [book, chapter]);
 
   useEffect(() => {
-    if (selectedChapter !== +chapter) {
+    if (selectedChapter !== chapter) {
       router.push(`/libros/${book}/${selectedChapter}`);
     }
   }, [selectedChapter, chapter, book, router]);
@@ -75,16 +61,18 @@ export default function Chapter({
         </div>
       ) : (
         <div className="max-w-6xl w-full">
-          <Breadcrumbs variant="solid" radius="md">
-            <BreadcrumbItem>
-              <Link href="/">Inicio</Link>
-            </BreadcrumbItem>
-            <BreadcrumbItem>
-              <Link href="/libros">Libros</Link>
-            </BreadcrumbItem>
-            <BreadcrumbItem className="capitalize">{book}</BreadcrumbItem>
-            <BreadcrumbItem>Cap. {chapter}</BreadcrumbItem>
-          </Breadcrumbs>
+          <div className="max-w-6xl w-full">
+            <Breadcrumbs variant="solid" radius="md">
+              <BreadcrumbItem>
+                <Link href="/">Inicio</Link>
+              </BreadcrumbItem>
+              <BreadcrumbItem>
+                <Link href="/libros">Libros</Link>
+              </BreadcrumbItem>
+              <BreadcrumbItem className="capitalize">{book}</BreadcrumbItem>
+              <BreadcrumbItem>Cap. {chapter}</BreadcrumbItem>
+            </Breadcrumbs>
+          </div>
 
           <div className="w-full max-w-3xl mx-auto rounded-xl shadow-lg p-6 space-y-6">
             <div className="flex justify-center">
@@ -94,7 +82,7 @@ export default function Chapter({
                 placeholder="Ir a un capítulo"
                 defaultSelectedKeys={[selectedChapter.toString()]}
                 onChange={(selected) => {
-                  setSelectedChapter(Number(selected.target.value));
+                  setSelectedChapter(selected.target.value);
                 }}
               >
                 {(chapter) => <SelectItem>{chapter.label}</SelectItem>}
@@ -108,7 +96,7 @@ export default function Chapter({
 
             <Divider className="my-20" />
 
-            {books[0]?.vers.map((verse: Verse) => (
+            {books?.vers.map((verse: any) => (
               <div
                 key={verse.id}
                 className="flex font-inter items-start space-x-3"
