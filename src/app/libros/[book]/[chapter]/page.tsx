@@ -1,14 +1,14 @@
 "use client";
 
 import { getChapterByBook } from "@/api";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { Spinner } from "@heroui/spinner";
 import { Select, SelectItem } from "@heroui/select";
 import { useRouter } from "next/navigation";
 import { Breadcrumbs, BreadcrumbItem } from "@heroui/breadcrumbs";
 import { Divider } from "@heroui/divider";
 import Link from "next/link";
-import { Chapter, Verse } from "@/api/types";
+import { Chapter } from "@/api/types";
 
 interface Params {
   book: string;
@@ -26,24 +26,24 @@ export default function ChapterBook({
   const [selectedChapter, setSelectedChapter] = useState<number>(+chapter);
   const router = useRouter();
 
-  const fetchBookByChapter = async () => {
+  const fetchBookByChapter = useCallback(async () => {
     try {
       const booksData = await getChapterByBook(book, +chapter);
       setBooks(booksData);
-
+  
       const totalChapters = booksData.num_chapters;
       const chaptersArray = Array.from({ length: totalChapters }, (_, i) => ({
         key: `${i + 1}`,
         label: `Capitulo ${i + 1}`,
       }));
       setChapters(chaptersArray);
-
+  
       setLoading(false);
     } catch (error) {
       console.error("Error fetching books:", error);
       setLoading(false);
     }
-  };
+  }, [book, chapter]);
 
   useEffect(() => {
     fetchBookByChapter();
@@ -102,7 +102,7 @@ export default function ChapterBook({
 
             <Divider className="my-20" />
 
-            {books?.vers.map((verse: Verse) => (
+            {books?.vers.map((verse: any) => (
               <div
                 key={verse.id}
                 className="flex font-inter items-start space-x-3"
