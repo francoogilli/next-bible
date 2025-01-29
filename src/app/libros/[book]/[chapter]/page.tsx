@@ -8,21 +8,27 @@ import { useRouter } from "next/navigation";
 import { Breadcrumbs, BreadcrumbItem } from "@heroui/breadcrumbs";
 import { Divider } from "@heroui/divider";
 import Link from "next/link";
-export default function Chapter({
+import { Chapter } from "@/api/types";
+
+interface Params {
+  book: string;
+  chapter: string;
+}
+export default function ChapterBook({
   params,
 }: {
-  params: { book: string; chapter: string };
+  params: Params;
 }) {
-  const { book, chapter } = React.use(params);
-  const [books, setBooks] = useState(null);
+  const { book, chapter } = params; 
+  const [books, setBooks] = useState<Chapter>();
   const [loading, setLoading] = useState(true);
-  const [chapters, setChapters] = useState([]);
+  const [chapters, setChapters] = useState<{ key: string; label: string }[]>([]);
   const [selectedChapter, setSelectedChapter] = useState<number>(+chapter);
   const router = useRouter();
 
   const fetchBookByChapter = async () => {
     try {
-      const booksData = await getChapterByBook(book, chapter);
+      const booksData = await getChapterByBook(book, +chapter);
       setBooks(booksData);
 
       const totalChapters = booksData.num_chapters;
@@ -45,7 +51,7 @@ export default function Chapter({
   }, [book, chapter]);
 
   useEffect(() => {
-    if (selectedChapter !== chapter) {
+    if (selectedChapter !== +chapter) {
       router.push(`/libros/${book}/${selectedChapter}`);
     }
   }, [selectedChapter, chapter, book, router]);
@@ -82,7 +88,7 @@ export default function Chapter({
                 placeholder="Ir a un capítulo"
                 defaultSelectedKeys={[selectedChapter.toString()]}
                 onChange={(selected) => {
-                  setSelectedChapter(selected.target.value);
+                  setSelectedChapter(+selected.target.value);
                 }}
               >
                 {(chapter) => <SelectItem>{chapter.label}</SelectItem>}

@@ -1,3 +1,9 @@
+export interface Book {
+  names: string[];
+  abrev: string;
+  chapters: number;
+  testament: string;
+}
 
 export interface Verse {
   verse: string;
@@ -5,11 +11,6 @@ export interface Verse {
   study: string;
   id: number;
 }
-
-export interface Book {
-  num_chapters: number;
-  vers: Verse[];
-};
 
 export interface Chapter {
   testament: string;
