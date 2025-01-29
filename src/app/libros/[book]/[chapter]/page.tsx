@@ -9,7 +9,6 @@ import { Breadcrumbs, BreadcrumbItem } from "@heroui/breadcrumbs";
 import { Divider } from "@heroui/divider";
 import Link from "next/link";
 import { Chapter, Verse } from "@/api/types";
-import { Metadata } from "next";
 
 type Params= {
   book: string;
