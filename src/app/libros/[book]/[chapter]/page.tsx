@@ -8,7 +8,7 @@ import { useRouter } from "next/navigation";
 import { Breadcrumbs, BreadcrumbItem } from "@heroui/breadcrumbs";
 import { Divider } from "@heroui/divider";
 import Link from "next/link";
-import { Chapter } from "@/api/types";
+import { Chapter, Verse } from "@/api/types";
 
 interface Params {
   book: string;
@@ -102,7 +102,7 @@ export default function ChapterBook({
 
             <Divider className="my-20" />
 
-            {books?.vers.map((verse: any) => (
+            {books?.vers.map((verse: Verse) => (
               <div
                 key={verse.id}
                 className="flex font-inter items-start space-x-3"
