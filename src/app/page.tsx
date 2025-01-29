@@ -13,6 +13,8 @@ export default function Home() {
           className="absolute inset-0 w-full h-full"
           style={{ animation: "levitate 30s ease infinite" }}
           draggable="false"
+          width={450}
+          height={450}
           alt="Book"
         />
         <Image
@@ -20,6 +22,8 @@ export default function Home() {
           className="absolute inset-0 w-full h-full"
           style={{ animation: "levitate 15s ease infinite" }}
           draggable="false"
+          width={450}
+          height={450}
           alt="Book"
         />
         <Image
@@ -27,6 +31,8 @@ export default function Home() {
           className="absolute inset-0 w-full h-full"
           style={{ animation: "levitate 12s ease infinite" }}
           draggable="false"
+          width={450}
+          height={450}
           alt="Book"
         />
         <Image
@@ -34,6 +40,8 @@ export default function Home() {
           className="absolute inset-0 w-full h-full"
           style={{ animation: "levitate 10s ease infinite" }}
           draggable="false"
+          width={450}
+          height={450}
           alt="Book"
         />
         <Image
@@ -41,6 +49,8 @@ export default function Home() {
           className="absolute inset-0 w-full h-full"
           style={{ animation: "levitate 9s ease infinite" }}
           draggable="false"
+          width={450}
+          height={450}
           alt="Book"
         />
       </div>
