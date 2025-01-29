@@ -10,21 +10,16 @@ import { Divider } from "@heroui/divider";
 import Link from "next/link";
 import { Chapter, Verse } from "@/api/types";
 
-type Params= {
-  book: string;
-  chapter: string;
-}
-type Props = {
-  params: Params;
-}
+type PageProps = {
+  params: {
+    book: string;
+    chapter: string;
+  };
+};
 
-// export function generateMetadata({ params }: Props): Metadata {
-//   const { book } = params;
-//   return {
-//     title: bibleBookNameBySlug[book],
-//   };
-// }
-export default  function ChapterBook({ params }: Props) {
+export default function ChapterBook({
+  params,
+}: PageProps) {
   const { book, chapter } = params; 
   const [books, setBooks] = useState<Chapter>();
   const [loading, setLoading] = useState(true);
