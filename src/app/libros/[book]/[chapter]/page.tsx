@@ -9,16 +9,23 @@ import { Breadcrumbs, BreadcrumbItem } from "@heroui/breadcrumbs";
 import { Divider } from "@heroui/divider";
 import Link from "next/link";
 import { Chapter, Verse } from "@/api/types";
+import { Metadata } from "next";
 
-interface Params {
+type Params= {
   book: string;
   chapter: string;
 }
-export default function ChapterBook({
-  params,
-}: {
+type Props = {
   params: Params;
-}) {
+}
+
+// export function generateMetadata({ params }: Props): Metadata {
+//   const { book } = params;
+//   return {
+//     title: bibleBookNameBySlug[book],
+//   };
+// }
+export default  function ChapterBook({ params }: Props) {
   const { book, chapter } = params; 
   const [books, setBooks] = useState<Chapter>();
   const [loading, setLoading] = useState(true);
